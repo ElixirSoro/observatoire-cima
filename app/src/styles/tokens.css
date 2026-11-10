@@ -1,0 +1,36 @@
+/*
+ * LES RÉGLAGES VISUELS DU SITE SONT ICI : couleurs, polices, tailles.
+ * Changer une valeur ici la change partout.
+ */
+:root {
+  color-scheme: dark;
+
+  /* Couleurs : une lagune de nuit, du plus sombre au plus clair. */
+  --lagune-950: #061a1e; /* fond de page */
+  --lagune-900: #0b262c; /* surfaces (graphique, bandeau) */
+  --lagune-800: #123540; /* surfaces en relief */
+  --lagune-700: #1f4d56; /* traits et bordures */
+  --ecume: #edf3ef; /* texte principal */
+  --brume: #a9bdb9; /* texte secondaire */
+  --ambre: #f2b24c; /* attention : état « à confirmer », contour de sélection */
+  --vert: #5fc49a; /* état « vérifié » */
+
+  /* Couleurs des séries de graphiques (contrôlées pour les daltoniens sur fond sombre). */
+  --serie-1: #3987e5;
+  --serie-2: #d95926;
+
+  --police-titre: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
+  --police-texte: 'Schibsted Grotesk Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --taille-hero: clamp(2.5rem, 1.2rem + 6.2vw, 5.75rem);
+  --taille-titre: clamp(1.75rem, 1.2rem + 2.4vw, 2.75rem);
+  --taille-sous-titre: 1.25rem;
+  --taille-texte: 1.0625rem;
+  --taille-petit: 0.9375rem;
+
+  --largeur-max: 70rem;
+  --marge-page: clamp(1.25rem, 5vw, 3rem);
+  --espace-section: clamp(4rem, 9vw, 7.5rem);
+  --rayon-bouton: 6px;
+  --rayon-surface: 12px;
+}

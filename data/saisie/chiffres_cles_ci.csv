@@ -1,0 +1,21 @@
+id_source,page,tableau,pays,exercice,entite,branche,indicateur,valeur,unite,origine
+CAPMAD-2026-08-23,1,Article,CI,2025,Marché,Toutes,primes_emises,"688,8",milliards FCFA,ASA-CI
+CAPMAD-2026-08-23,1,Article,CI,2026,Marché,Toutes,primes_emises_semestre_1,"435,9",milliards FCFA,Direction des assurances
+ALLAFRICA-2025-03-18,1,Article,CI,2024,Marché,Toutes,primes_emises,"628,042",milliards FCFA,ASA-CI
+ALLAFRICA-2025-03-18,1,Article,CI,2023,Marché,Toutes,primes_emises,"594,342",milliards FCFA,ASA-CI
+ECOCI-INDICATEURS,1,Page Indicateurs des assurances,CI,2023,Marché,Toutes,primes_emises,"601,94",milliards FCFA,economie-ivoirienne.ci
+ECOCI-INDICATEURS,1,Page Indicateurs des assurances,CI,2018,Marché,Toutes,primes_emises,"359,56",milliards FCFA,economie-ivoirienne.ci
+ECOCI-INDICATEURS,1,Page Indicateurs des assurances,CI,2023,Marché,Toutes,taux_sinistralite,"60,1",%,economie-ivoirienne.ci
+ATLAS-CI-2025,1,Principaux indicateurs,CI,2025,Marché,Toutes,taux_penetration,"1,2",%,Atlas Magazine
+ATLAS-CI-2025,1,Principaux indicateurs,CI,2025,Marché,Toutes,densite_assurance,"37,7",USD par habitant,Atlas Magazine
+ATLAS-CI-2025,1,Principaux indicateurs,CI,2025,Marché,Toutes,primes_emises_usd,1 233,millions USD,Atlas Magazine
+ATLAS-CI-2024,1,Principaux indicateurs,CI,2024,Marché,Toutes,taux_penetration,"1,27",%,Atlas Magazine
+ATLAS-CI-2024,1,Principaux indicateurs,CI,2024,Marché,Toutes,densite_assurance,"32,04",USD par habitant,Atlas Magazine
+ATLAS-CI-2024,1,Structure du marché,CI,2024,Marché,Non-vie,nombre_compagnies,22,nombre,Atlas Magazine
+ATLAS-CI-2024,1,Structure du marché,CI,2024,Marché,Vie,nombre_compagnies,10,nombre,Atlas Magazine
+ATLAS-CI-2024,1,Structure du marché,CI,2024,Marché,Réassurance,nombre_compagnies,2,nombre,Atlas Magazine
+ATLAS-CI-2024,1,Structure du marché,CI,2024,Marché,Courtage,nombre_societes_courtage,334,nombre,Atlas Magazine
+ATLAS-CI-2024,1,Structure du marché,CI,2024,Marché,Santé,nombre_gestionnaires_fonds_sante,11,nombre,Atlas Magazine
+ATLAS-CI-2024,1,Primes par branche,CI,2024,Marché,Vie,primes_emises_branche,266 720 086,milliers FCFA,Atlas Magazine
+ATLAS-CI-2024,1,Primes par branche,CI,2024,Marché,Accidents et maladie,primes_emises_branche,108 193 864,milliers FCFA,Atlas Magazine
+ATLAS-CI-2024,1,Primes par branche,CI,2024,Marché,Toutes,primes_emises_branche,628 049 227,milliers FCFA,Atlas Magazine
