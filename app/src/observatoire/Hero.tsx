@@ -1,7 +1,7 @@
 import { HERO } from '../contenu';
 import type { Donnees } from '../lib/donnees';
 import { formaterDate } from '../lib/format';
-import { Maree } from './Maree';
+import { Maree } from '../components/Maree';
 
 export function Hero({ donnees }: { donnees: Donnees }) {
   const nombreChiffres = donnees.observations.length;

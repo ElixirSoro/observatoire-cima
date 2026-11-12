@@ -91,12 +91,20 @@ code {
 }
 
 .ecran-etat {
-  min-height: 100vh;
+  min-height: 60vh;
   display: grid;
   align-content: center;
   gap: 1rem;
-  padding: var(--marge-page);
+  padding-block: var(--marge-page);
+}
+
+.ecran-etat p {
   max-width: 40rem;
+}
+
+/* Le contenu reçoit le focus après un changement de page : pas de cadre autour de la page entière. */
+main:focus {
+  outline: none;
 }
 
 /* ---------- Boutons ---------- */
@@ -195,11 +203,11 @@ code {
 }
 
 .entete__liens a:hover,
-.entete__liens a[aria-current='true'] {
+.entete__liens a[aria-current='page'] {
   color: var(--ecume);
 }
 
-.entete__liens a[aria-current='true'] {
+.entete__liens a[aria-current='page'] {
   border-bottom-color: var(--ambre);
 }
 
@@ -280,6 +288,58 @@ code {
   }
 }
 
+.hero--accueil {
+  min-height: min(44rem, 84vh);
+}
+
+.hero--accueil .hero__titre {
+  max-width: 15ch;
+}
+
+/* ---------- Haut des pages intérieures ---------- */
+.tete-page {
+  padding-block: clamp(3rem, 9vw, 6rem) clamp(2rem, 5vw, 3.5rem);
+}
+
+.tete-page__titre {
+  max-width: 18ch;
+  font-family: var(--police-titre);
+  font-size: clamp(2.25rem, 1.3rem + 4.2vw, 4.25rem);
+  font-weight: 480;
+  font-variation-settings: 'opsz' 144, 'SOFT' 60;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.tete-page__texte {
+  max-width: 38rem;
+  margin-top: 1.25rem;
+  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.3rem);
+  color: var(--brume);
+}
+
+/* ---------- Sommaire de l'observatoire ---------- */
+.sommaire {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 1.5rem;
+  padding-block: 1.25rem;
+  font-size: var(--taille-petit);
+}
+
+.sommaire__titre {
+  font-weight: 600;
+  color: var(--brume);
+}
+
+.sommaire__liens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.4rem;
+}
+
 /* ---------- Sections ---------- */
 .section {
   padding-block: var(--espace-section) 0;
@@ -298,6 +358,352 @@ code {
 .section__texte {
   max-width: 40rem;
   margin-top: 0.9rem;
+  color: var(--brume);
+}
+
+.section__suite {
+  margin-top: 2rem;
+}
+
+/* ---------- Cartes : offres et règles en aperçu ---------- */
+.cartes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 clamp(1.5rem, 4vw, 3rem);
+  margin-top: 2.5rem;
+}
+
+.carte {
+  display: flex;
+  flex-direction: column;
+  padding-block: 1.4rem;
+  border-top: 1px solid var(--lagune-700);
+}
+
+.carte__titre {
+  font-family: var(--police-titre);
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.carte__texte {
+  margin-top: 0.6rem;
+  color: var(--brume);
+}
+
+.carte__prix {
+  margin-top: auto;
+  padding-top: 1.1rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Aperçu de l'observatoire sur l'accueil ---------- */
+.apercu {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+  align-items: end;
+  gap: 2.5rem clamp(2rem, 6vw, 5rem);
+}
+
+.apercu__chiffre {
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background: var(--lagune-900);
+  border-radius: var(--rayon-surface);
+}
+
+.apercu__valeur {
+  margin-top: 0.6rem;
+  font-size: clamp(3.25rem, 1.8rem + 6vw, 6rem);
+  font-weight: 650;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.apercu__valeur .tuile__unite {
+  display: block;
+  margin: 0.7rem 0 0;
+  font-size: 1.15rem;
+}
+
+/* ---------- Page des offres ---------- */
+.offre {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 1.5rem clamp(2rem, 6vw, 5rem);
+  padding-block: clamp(2rem, 4vw, 3rem);
+  border-top: 1px solid var(--lagune-700);
+}
+
+.offre__titre {
+  font-family: var(--police-titre);
+  font-size: clamp(1.6rem, 1.3rem + 1.2vw, 2.1rem);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.offre__resume {
+  margin-top: 0.9rem;
+}
+
+.offre__pour-qui {
+  margin-top: 0.6rem;
+  color: var(--brume);
+}
+
+.offre__fiche {
+  display: grid;
+  gap: 1.1rem;
+  align-content: start;
+}
+
+.offre__fiche > div {
+  display: grid;
+  grid-template-columns: 8.5rem minmax(0, 1fr);
+  gap: 0.25rem 1.25rem;
+}
+
+.offre__fiche dt {
+  font-size: var(--taille-petit);
+  font-weight: 600;
+  color: var(--brume);
+}
+
+.offre__livrables {
+  display: grid;
+  gap: 0.45rem;
+  padding-left: 1.1rem;
+  list-style: disc;
+}
+
+.offre__prix {
+  font-size: 1.25rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+.offres__note {
+  padding-block: 1.25rem 0;
+  border-top: 1px solid var(--lagune-700);
+  font-size: var(--taille-petit);
+  color: var(--brume);
+}
+
+.etapes {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0 clamp(1.25rem, 3vw, 2.5rem);
+  margin: 2.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.etapes li {
+  padding-block: 1.4rem;
+  border-top: 1px solid var(--lagune-700);
+}
+
+.etapes__rang {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-family: var(--police-titre);
+  font-size: 2.25rem;
+  font-weight: 480;
+  line-height: 1;
+  color: var(--ambre);
+}
+
+/* ---------- Atelier de données ---------- */
+.atelier {
+  display: grid;
+  /* minmax(0, 1fr) : un tableau large défile dans son cadre au lieu d'élargir la page. */
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 3.5rem);
+  padding-bottom: clamp(3rem, 8vw, 6rem);
+}
+
+.depot {
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background: var(--lagune-900);
+  border-radius: var(--rayon-surface);
+}
+
+.depot__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.depot__fichier:focus-within {
+  outline: 2px solid var(--ambre);
+  outline-offset: 3px;
+}
+
+.depot__note {
+  max-width: 44rem;
+  margin-top: 0.35rem;
+  font-size: var(--taille-petit);
+  color: var(--brume);
+}
+
+.atelier__etat {
+  padding-block: 1rem;
+}
+
+.atelier__etat--erreur {
+  padding: 1rem 1.25rem;
+  border-left: 3px solid var(--ambre);
+  background: var(--lagune-900);
+  border-radius: 0 var(--rayon-bouton) var(--rayon-bouton) 0;
+}
+
+.resultat__origine {
+  margin-top: 0.9rem;
+  color: var(--brume);
+  overflow-wrap: anywhere;
+}
+
+.resultat__origine strong {
+  color: var(--ecume);
+}
+
+.resultat__sous-titre {
+  margin-top: clamp(2rem, 5vw, 3rem);
+  font-family: var(--police-titre);
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+.mesures {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0 clamp(1.25rem, 3vw, 2.5rem);
+  margin-top: 2rem;
+}
+
+.mesures > div {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  padding-block: 1.1rem;
+  border-top: 1px solid var(--lagune-700);
+}
+
+.mesures dt {
+  margin-top: 0.3rem;
+  font-size: var(--taille-petit);
+  color: var(--brume);
+}
+
+.mesures dd {
+  font-size: clamp(1.9rem, 1.3rem + 2vw, 2.75rem);
+  font-weight: 650;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.constats {
+  display: grid;
+  margin-top: 1rem;
+}
+
+.constat {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 0.25rem 1.25rem;
+  padding-block: 0.85rem;
+  border-top: 1px solid var(--lagune-700);
+}
+
+.constat__niveau {
+  font-size: var(--taille-petit);
+  font-weight: 600;
+}
+
+.constat--attention .constat__niveau {
+  color: var(--ambre);
+}
+
+.constat--information .constat__niveau {
+  color: var(--brume);
+}
+
+.constats__aucun {
+  margin-top: 1rem;
+  padding-block: 0.85rem;
+  border-top: 1px solid var(--lagune-700);
+  color: var(--vert);
+}
+
+.tableau--colonnes {
+  min-width: 40rem;
+}
+
+.tableau--apercu {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.tableau--apercu tbody th {
+  color: var(--brume);
+  font-weight: 400;
+}
+
+.tableau__vide {
+  color: var(--ambre);
+  font-style: italic;
+}
+
+.atelier__limites {
+  max-width: 44rem;
+}
+
+/* ---------- Page de contact ---------- */
+.contact {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 2rem clamp(2rem, 6vw, 5rem);
+  align-items: start;
+  padding-bottom: clamp(2rem, 6vw, 4rem);
+}
+
+.contact__moyens {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.contact__moyen {
+  display: block;
+  font-size: var(--taille-petit);
+  font-weight: 600;
+  color: var(--brume);
+}
+
+.contact__lien {
+  display: inline-block;
+  margin-top: 0.3rem;
+  font-family: var(--police-titre);
+  font-size: clamp(1.5rem, 1.1rem + 2vw, 2.4rem);
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.contact__absent {
+  max-width: 30rem;
+  padding-block: 1.25rem;
+  border-top: 1px solid var(--lagune-700);
+  color: var(--brume);
+}
+
+.contact__note {
+  grid-column: 1 / -1;
+  font-size: var(--taille-petit);
   color: var(--brume);
 }
 
@@ -607,6 +1013,7 @@ code {
 }
 
 .structure__sous-titre,
+.methode__manques h2,
 .methode__manques h3 {
   font-size: var(--taille-sous-titre);
   font-weight: 600;
@@ -833,7 +1240,20 @@ code {
 @media (max-width: 52rem) {
   .tuiles,
   .structure,
-  .methode {
+  .methode,
+  .cartes,
+  .apercu,
+  .offre,
+  .contact {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .etapes,
+  .mesures {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .offre__fiche > div {
     grid-template-columns: minmax(0, 1fr);
   }
 
@@ -852,5 +1272,33 @@ code {
   .barre__valeur--courte {
     display: block;
     font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 34rem) {
+  html {
+    scroll-padding-top: 6.5rem;
+  }
+
+  .entete {
+    flex-wrap: wrap;
+    row-gap: 0.1rem;
+  }
+
+  .entete nav {
+    width: 100%;
+  }
+
+  .entete__liens {
+    gap: 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  .constat {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .etapes {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

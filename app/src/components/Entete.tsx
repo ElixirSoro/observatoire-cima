@@ -1,43 +1,20 @@
-import { useEffect, useState } from 'react';
+import { NOM_DU_SITE, PAGES_PUBLIEES } from '../contenu';
+import { Lien } from '../navigation';
 
-import { NOM_DU_SITE, SECTIONS } from '../contenu';
+const PAGES_DU_MENU = PAGES_PUBLIEES.filter((page) => page.segment !== '');
 
-/** Barre de navigation fixe : la section en cours de lecture est soulignée. */
+/** Barre de navigation fixe : la page affichée est soulignée. */
 export function Entete() {
-  const [active, setActive] = useState<string | null>(null);
-
-  useEffect(() => {
-    const observateur = new IntersectionObserver(
-      (entrees) => {
-        for (const entree of entrees) {
-          if (entree.isIntersecting) {
-            setActive(entree.target.id);
-          }
-        }
-      },
-      { rootMargin: '-45% 0px -50% 0px' },
-    );
-    for (const section of SECTIONS) {
-      const element = document.getElementById(section.id);
-      if (element !== null) {
-        observateur.observe(element);
-      }
-    }
-    return () => observateur.disconnect();
-  }, []);
-
   return (
     <header className="entete">
-      <a className="entete__nom" href="#contenu">
+      <Lien className="entete__nom" vers="">
         {NOM_DU_SITE}
-      </a>
-      <nav aria-label="Sections de la page">
+      </Lien>
+      <nav aria-label="Pages du site">
         <ul className="entete__liens">
-          {SECTIONS.map((section) => (
-            <li key={section.id}>
-              <a href={`#${section.id}`} aria-current={active === section.id ? 'true' : undefined}>
-                {section.libelle}
-              </a>
+          {PAGES_DU_MENU.map((page) => (
+            <li key={page.id}>
+              <Lien vers={page.segment}>{page.libelle}</Lien>
             </li>
           ))}
         </ul>
