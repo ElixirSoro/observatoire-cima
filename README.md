@@ -1,8 +1,8 @@
-# Observatoire CIMA (nom de travail)
+# Site de l'entreprise et observatoire du marché de l'assurance
 
-Les chiffres du marché de l'assurance en Côte d'Ivoire, puis en zone CIMA, chacun relié à la source publique où il a été lu.
+Le site présente trois prestations de données (audit et nettoyage, tableau de bord, rapport automatisé) et un observatoire : les chiffres du marché de l'assurance en Côte d'Ivoire, chacun relié à la source publique où il a été lu.
 
-**État au 10 novembre 2026 : version 0.** Le site affiche 20 chiffres clés de la Côte d'Ivoire, relevés sur 5 pages publiques (articles et fiches de synthèse). Tous portent la mention « à confirmer » : ils n'ont pas encore été relus dans les rapports officiels, dont les PDF restent à intégrer.
+**État au 12 novembre 2026.** Le site compte cinq pages : accueil, offres, observatoire, méthode, contact. Le nom de l'entreprise est provisoire. L'observatoire affiche 20 chiffres clés, relevés sur 5 pages publiques ; tous portent la mention « à confirmer », car ils n'ont pas encore été relus dans les rapports officiels.
 
 Site en ligne : https://elixirsoro.github.io/observatoire-cima/
 
@@ -10,9 +10,10 @@ Site en ligne : https://elixirsoro.github.io/observatoire-cima/
 
 1. **Sources publiques uniquement.** Chaque chiffre vient d'un document publié en ligne par un organisme identifié, inscrit au registre des sources. Aucune donnée privée ou interne à une entreprise.
 2. **Aucune donnée personnelle.** La base ne contient que des chiffres de marché, de branche et de compagnie.
-3. **Aucune vente d'assurance.** Le projet publie des chiffres ; il ne présente ni ne distribue de contrats.
+3. **Aucune vente d'assurance.** Le projet vend des prestations de données et publie des chiffres ; il ne présente ni ne distribue de contrats.
 4. **Chaque chiffre est traçable.** Source, exercice et page sont enregistrés avec la valeur. Les documents d'origine ne sont pas republiés : on cite et on renvoie vers l'éditeur.
 5. **Provisoire tant que non relu.** Un chiffre lu dans un article ou une fiche de synthèse reste « à confirmer » jusqu'à sa relecture dans le rapport officiel.
+6. **Aucune information enregistrée sur les visiteurs.** Le site n'a ni compte, ni formulaire, ni traceur. Le contact se fait par courriel ou par WhatsApp.
 
 ## Comment c'est organisé
 
@@ -27,7 +28,11 @@ data/saisie/*.csv  ──►  base SQLite  ──►  app/public/data/observatoi
 | `data/saisie/` | Les chiffres relevés, un fichier CSV par lot. |
 | `src/obscima/` | Le code Python : contrôles, base, export. |
 | `app/` | L'application web (React, TypeScript, Vite). |
-| `app/src/contenu.ts` | Tous les textes du site et le choix des chiffres mis en avant. |
+| `app/src/contenu.ts` | Tous les textes du site : nom de l'entreprise, pages, offres et prix, coordonnées, chiffres mis en avant. |
+| `app/src/pages/` | Une page par fichier : accueil, offres, observatoire, méthode, contact. |
+| `app/src/observatoire/` | Les blocs de la page de l'observatoire. |
+| `app/src/navigation.tsx` | Le passage d'une page à l'autre sans rechargement. |
+| `app/outils/pagesStatiques.ts` | À la construction, crée un fichier `index.html` par page : chaque page a sa propre adresse. |
 | `app/src/styles/tokens.css` | Couleurs, polices, tailles. |
 
 ## Mettre le site à jour
@@ -39,7 +44,17 @@ data/saisie/*.csv  ──►  base SQLite  ──►  app/public/data/observatoi
 3. Lancez `python -m obscima.construire` à la racine du projet.
 4. Enregistrez et envoyez : `git add -A && git commit -m "Ajout de chiffres" && git push`. Le site en ligne se met à jour tout seul en quelques minutes.
 
-**Changer un texte ou les chiffres mis en avant** : modifiez `app/src/contenu.ts`.
+**Changer un texte ou les chiffres mis en avant** : modifiez `app/src/contenu.ts`. Tout y est :
+
+| Pour changer | Modifiez dans `contenu.ts` |
+|---|---|
+| Le nom de l'entreprise | `NOM_ENTREPRISE` (une seule ligne) |
+| Le courriel et le numéro WhatsApp | `COORDONNEES` |
+| Une offre, son délai, son prix | `OFFRES` |
+| Le titre d'une page ou son nom dans le menu | `PAGES` |
+| Les règles de la page Méthode | `PAGE_METHODE` |
+
+**Ajouter une page** : ajoutez une ligne à `PAGES`, créez son fichier dans `app/src/pages/`, puis ajoutez-la dans `app/src/App.tsx`.
 
 **Changer les couleurs ou les polices** : modifiez `app/src/styles/tokens.css`.
 
@@ -61,7 +76,7 @@ npm run dev        # ouvre le site sur http://localhost:5173
 
 ```bash
 pytest && ruff check . && mypy src tests     # à la racine : 67 tests
-cd app && npm test && npm run build          # 15 tests, puis construction du site
+cd app && npm test && npm run build          # 40 tests, puis construction du site
 ```
 
 Les mêmes vérifications tournent sur GitHub à chaque envoi (`.github/workflows/ci.yml`). Si elles passent, le site est reconstruit et remis en ligne automatiquement.

@@ -48,3 +48,14 @@ export function formaterDate(iso: string): string {
   const numeroJour = Number(jour);
   return `${numeroJour === 1 ? '1er' : numeroJour} ${nomMois} ${annee}`;
 }
+
+/** « 50 000 à 150 000 FCFA ». Lève une erreur si la fourchette est vide, négative ou inversée. */
+export function formaterFourchetteFcfa(minimum: number, maximum: number): string {
+  if (!Number.isFinite(minimum) || !Number.isFinite(maximum) || minimum <= 0 || minimum > maximum) {
+    throw new Error(`Fourchette de prix invalide : de ${minimum} à ${maximum}.`);
+  }
+  if (minimum === maximum) {
+    return `${formaterNombre(minimum)} FCFA`;
+  }
+  return `${formaterNombre(minimum)} à ${formaterNombre(maximum)} FCFA`;
+}

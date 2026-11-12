@@ -8,7 +8,7 @@ import {
   validerDonnees,
   versCsv,
 } from './donnees';
-import { formaterDate, formaterNombre, formaterValeur } from './format';
+import { formaterDate, formaterFourchetteFcfa, formaterNombre, formaterValeur } from './format';
 
 // Valeurs de test, sans rapport avec des chiffres réels.
 const BASE: Observation = {
@@ -95,5 +95,17 @@ describe('formats', () => {
     expect(() => formaterDate('10/11/2026')).toThrow();
     expect(() => formaterDate('2026-13-01')).toThrow();
     expect(() => formaterNombre(Number.NaN)).toThrow();
+  });
+});
+
+describe('formaterFourchetteFcfa', () => {
+  it('écrit une fourchette de prix', () => {
+    expect(formaterFourchetteFcfa(50_000, 150_000)).toBe('50\u202f000 à 150\u202f000 FCFA');
+    expect(formaterFourchetteFcfa(100_000, 100_000)).toBe('100\u202f000 FCFA');
+  });
+  it('refuse une fourchette inversée, nulle ou non finie', () => {
+    expect(() => formaterFourchetteFcfa(200_000, 100_000)).toThrow(/Fourchette de prix invalide/);
+    expect(() => formaterFourchetteFcfa(0, 100_000)).toThrow(/Fourchette de prix invalide/);
+    expect(() => formaterFourchetteFcfa(Number.NaN, 100_000)).toThrow(/Fourchette de prix invalide/);
   });
 });

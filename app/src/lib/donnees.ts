@@ -34,6 +34,12 @@ export interface Donnees {
   observations: Observation[];
 }
 
+/** Où en est la lecture du fichier de données. */
+export type EtatDonnees =
+  | { phase: 'chargement' }
+  | { phase: 'erreur'; message: string }
+  | { phase: 'pret'; donnees: Donnees };
+
 export interface Critere {
   indicateur: string;
   exercice: number;

@@ -1,6 +1,7 @@
 import { METHODE } from '../contenu';
 
-export function Methode() {
+/** Les règles d'établissement des chiffres, et ce qui manque encore. */
+export function Regles() {
   return (
     <section id="methode" className="section largeur" aria-labelledby="titre-methode">
       <h2 id="titre-methode" className="section__titre">
