@@ -5,6 +5,7 @@ import type { EtatDonnees } from './lib/donnees';
 import { FournisseurNavigation, ID_CONTENU, useNavigation } from './navigation';
 import { useDonnees } from './observatoire/useDonnees';
 import { Accueil } from './pages/Accueil';
+import { Atelier } from './pages/Atelier';
 import { Contact } from './pages/Contact';
 import { Methode } from './pages/Methode';
 import { Observatoire } from './pages/Observatoire';
@@ -16,6 +17,8 @@ function ContenuPage({ id, etat }: { id: IdPage; etat: EtatDonnees }) {
       return <Accueil etat={etat} />;
     case 'offres':
       return <Offres />;
+    case 'atelier':
+      return <Atelier />;
     case 'observatoire':
       return <Observatoire etat={etat} />;
     case 'methode':

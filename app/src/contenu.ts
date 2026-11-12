@@ -24,7 +24,7 @@ export const COORDONNEES: Coordonnees = {
   whatsapp: '',
 };
 
-export type IdPage = 'accueil' | 'offres' | 'observatoire' | 'methode' | 'contact';
+export type IdPage = 'accueil' | 'offres' | 'atelier' | 'observatoire' | 'methode' | 'contact';
 
 export interface Page {
   id: IdPage;
@@ -55,6 +55,14 @@ export const PAGES: readonly Page[] = [
     titre: `Offres — ${NOM_ENTREPRISE}`,
     description:
       'Trois prestations de données : audit et nettoyage, tableau de bord, rapport mensuel automatisé. Livrable, délai et prix indicatif.',
+  },
+  {
+    id: 'atelier',
+    segment: 'atelier',
+    libelle: 'Atelier',
+    titre: `Atelier de données — ${NOM_ENTREPRISE}`,
+    description:
+      "Déposez un fichier Excel ou CSV et obtenez son état de santé : doublons, cellules vides, colonnes incohérentes. Le fichier reste sur votre appareil.",
   },
   {
     id: 'observatoire',
@@ -188,6 +196,54 @@ export const PAGE_OFFRES = {
   },
 };
 
+export const ATELIER = {
+  titre: 'Atelier de données',
+  texte: 'Déposez un fichier Excel ou CSV : vous obtenez son état de santé, colonne par colonne.',
+  boutonFichier: 'Choisir un fichier',
+  boutonExemple: 'Essayer avec un exemple fictif',
+  formats: 'Formats lus : .xlsx, .csv, .tsv, .txt.',
+  confidentialite:
+    "Votre fichier est lu par votre navigateur, sur votre appareil. Il n'est envoyé à aucun serveur.",
+  lecture: 'Lecture du fichier.',
+  erreur: "Ce fichier n'a pas pu être lu.",
+  resultat: {
+    titre: 'État du fichier',
+    feuille: 'Feuille lue',
+    autresFeuilles: 'Feuilles non lues',
+  },
+  tuiles: {
+    lignes: 'Lignes de données',
+    colonnes: 'Colonnes',
+    remplissage: 'Cellules remplies',
+    doublons: 'Lignes en double',
+  },
+  constats: {
+    titre: 'Ce qui a été trouvé',
+    aucun: 'Aucun défaut trouvé par ces contrôles.',
+    niveaux: { attention: 'À corriger', information: 'À savoir' },
+  },
+  colonnes: {
+    titre: 'Colonne par colonne',
+    entetes: { nom: 'Colonne', genre: 'Contenu', remplissage: 'Remplie à', resume: 'Résumé' },
+  },
+  genres: { nombre: 'Nombres', date: 'Dates', texte: 'Texte', booleen: 'Vrai ou faux', vide: 'Vide' },
+  apercu: {
+    titre: 'Aperçu',
+    texte: 'Les premières lignes, telles que lues dans le fichier.',
+    ligne: 'Ligne',
+    vide: 'vide',
+  },
+  limites: {
+    titre: 'Ce que ces contrôles ne voient pas',
+    elements: [
+      'Une valeur fausse mais bien écrite : un montant erroné reste un nombre.',
+      "Les doublons approchés : deux lignes qui diffèrent d'une lettre ne sont pas rapprochées.",
+      "Les autres feuilles d'un classeur : seule la première est lue.",
+      'Les nombres écrits à l\'anglaise : « 1,234 » est lu 1,234 et non 1 234.',
+    ],
+  },
+};
+
 export const PAGE_METHODE = {
   titre: 'Comment le travail est fait',
   texte: 'Quatre règles valent pour chaque prestation comme pour chaque chiffre publié sur ce site.',
@@ -214,6 +270,7 @@ export const PAGE_METHODE = {
     elements: [
       "Il ne vend pas d'assurance et ne présente aucun contrat.",
       "Il n'enregistre rien sur ses visiteurs : ni compte, ni formulaire, ni traceur.",
+      "Il ne reçoit pas les fichiers ouverts dans l'atelier : ils sont lus sur votre appareil.",
       "Il ne remplace pas l'avis d'un expert-comptable, d'un juriste ou d'un actuaire.",
     ],
   },

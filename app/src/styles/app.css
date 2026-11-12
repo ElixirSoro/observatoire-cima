@@ -516,6 +516,154 @@ main:focus {
   color: var(--ambre);
 }
 
+/* ---------- Atelier de données ---------- */
+.atelier {
+  display: grid;
+  /* minmax(0, 1fr) : un tableau large défile dans son cadre au lieu d'élargir la page. */
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 3.5rem);
+  padding-bottom: clamp(3rem, 8vw, 6rem);
+}
+
+.depot {
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background: var(--lagune-900);
+  border-radius: var(--rayon-surface);
+}
+
+.depot__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.depot__fichier:focus-within {
+  outline: 2px solid var(--ambre);
+  outline-offset: 3px;
+}
+
+.depot__note {
+  max-width: 44rem;
+  margin-top: 0.35rem;
+  font-size: var(--taille-petit);
+  color: var(--brume);
+}
+
+.atelier__etat {
+  padding-block: 1rem;
+}
+
+.atelier__etat--erreur {
+  padding: 1rem 1.25rem;
+  border-left: 3px solid var(--ambre);
+  background: var(--lagune-900);
+  border-radius: 0 var(--rayon-bouton) var(--rayon-bouton) 0;
+}
+
+.resultat__origine {
+  margin-top: 0.9rem;
+  color: var(--brume);
+  overflow-wrap: anywhere;
+}
+
+.resultat__origine strong {
+  color: var(--ecume);
+}
+
+.resultat__sous-titre {
+  margin-top: clamp(2rem, 5vw, 3rem);
+  font-family: var(--police-titre);
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+.mesures {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0 clamp(1.25rem, 3vw, 2.5rem);
+  margin-top: 2rem;
+}
+
+.mesures > div {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  padding-block: 1.1rem;
+  border-top: 1px solid var(--lagune-700);
+}
+
+.mesures dt {
+  margin-top: 0.3rem;
+  font-size: var(--taille-petit);
+  color: var(--brume);
+}
+
+.mesures dd {
+  font-size: clamp(1.9rem, 1.3rem + 2vw, 2.75rem);
+  font-weight: 650;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.constats {
+  display: grid;
+  margin-top: 1rem;
+}
+
+.constat {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 0.25rem 1.25rem;
+  padding-block: 0.85rem;
+  border-top: 1px solid var(--lagune-700);
+}
+
+.constat__niveau {
+  font-size: var(--taille-petit);
+  font-weight: 600;
+}
+
+.constat--attention .constat__niveau {
+  color: var(--ambre);
+}
+
+.constat--information .constat__niveau {
+  color: var(--brume);
+}
+
+.constats__aucun {
+  margin-top: 1rem;
+  padding-block: 0.85rem;
+  border-top: 1px solid var(--lagune-700);
+  color: var(--vert);
+}
+
+.tableau--colonnes {
+  min-width: 40rem;
+}
+
+.tableau--apercu {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.tableau--apercu tbody th {
+  color: var(--brume);
+  font-weight: 400;
+}
+
+.tableau__vide {
+  color: var(--ambre);
+  font-style: italic;
+}
+
+.atelier__limites {
+  max-width: 44rem;
+}
+
 /* ---------- Page de contact ---------- */
 .contact {
   display: grid;
@@ -1100,7 +1248,8 @@ main:focus {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .etapes {
+  .etapes,
+  .mesures {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1138,6 +1287,15 @@ main:focus {
 
   .entete nav {
     width: 100%;
+  }
+
+  .entete__liens {
+    gap: 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  .constat {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .etapes {

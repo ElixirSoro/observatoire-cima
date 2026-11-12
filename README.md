@@ -2,7 +2,7 @@
 
 Le site présente trois prestations de données (audit et nettoyage, tableau de bord, rapport automatisé) et un observatoire : les chiffres du marché de l'assurance en Côte d'Ivoire, chacun relié à la source publique où il a été lu.
 
-**État au 12 novembre 2026.** Le site compte cinq pages : accueil, offres, observatoire, méthode, contact. Le nom de l'entreprise est provisoire. L'observatoire affiche 20 chiffres clés, relevés sur 5 pages publiques ; tous portent la mention « à confirmer », car ils n'ont pas encore été relus dans les rapports officiels.
+**État au 12 novembre 2026.** Le site compte six pages : accueil, offres, atelier, observatoire, méthode, contact. L'atelier lit un fichier Excel ou CSV dans le navigateur et en donne l'état : lignes vides, doublons, cellules vides, colonnes incohérentes, statistiques par colonne. Le nom de l'entreprise est provisoire. L'observatoire affiche 20 chiffres clés, relevés sur 5 pages publiques ; tous portent la mention « à confirmer », car ils n'ont pas encore été relus dans les rapports officiels.
 
 Site en ligne : https://elixirsoro.github.io/observatoire-cima/
 
@@ -14,6 +14,7 @@ Site en ligne : https://elixirsoro.github.io/observatoire-cima/
 4. **Chaque chiffre est traçable.** Source, exercice et page sont enregistrés avec la valeur. Les documents d'origine ne sont pas republiés : on cite et on renvoie vers l'éditeur.
 5. **Provisoire tant que non relu.** Un chiffre lu dans un article ou une fiche de synthèse reste « à confirmer » jusqu'à sa relecture dans le rapport officiel.
 6. **Aucune information enregistrée sur les visiteurs.** Le site n'a ni compte, ni formulaire, ni traceur. Le contact se fait par courriel ou par WhatsApp.
+7. **Les fichiers de l'atelier restent chez l'utilisateur.** Un fichier ouvert dans l'atelier est lu par le navigateur ; aucun code du site ne l'envoie à un serveur.
 
 ## Comment c'est organisé
 
@@ -31,6 +32,7 @@ data/saisie/*.csv  ──►  base SQLite  ──►  app/public/data/observatoi
 | `app/src/contenu.ts` | Tous les textes du site : nom de l'entreprise, pages, offres et prix, coordonnées, chiffres mis en avant. |
 | `app/src/pages/` | Une page par fichier : accueil, offres, observatoire, méthode, contact. |
 | `app/src/observatoire/` | Les blocs de la page de l'observatoire. |
+| `app/src/atelier/` | L'atelier de données : lecture du fichier (`lecture.ts`, `csv.ts`), interprétation des cellules (`valeurs.ts`), contrôle de qualité (`qualite.ts`), statistiques (`statistiques.ts`), phrases du rapport (`constats.ts`). |
 | `app/src/navigation.tsx` | Le passage d'une page à l'autre sans rechargement. |
 | `app/outils/pagesStatiques.ts` | À la construction, crée un fichier `index.html` par page : chaque page a sa propre adresse. |
 | `app/src/styles/tokens.css` | Couleurs, polices, tailles. |
@@ -76,10 +78,18 @@ npm run dev        # ouvre le site sur http://localhost:5173
 
 ```bash
 pytest && ruff check . && mypy src tests     # à la racine : 67 tests
-cd app && npm test && npm run build          # 40 tests, puis construction du site
+cd app && npm test && npm run build          # 70 tests, puis construction du site
 ```
 
 Les mêmes vérifications tournent sur GitHub à chaque envoi (`.github/workflows/ci.yml`). Si elles passent, le site est reconstruit et remis en ligne automatiquement.
+
+## L'atelier de données
+
+- **Formats lus** : `.xlsx` (première feuille), `.csv`, `.tsv`, `.txt`. Un ancien classeur `.xls` est refusé avec un conseil. Limites : 20 Mo, 200 000 lignes, 500 colonnes (`LIMITES` dans `app/src/atelier/tableau.ts`).
+- **Règles de lecture** : la virgule est le séparateur décimal ; les dates lues sont JJ/MM/AAAA, JJ-MM-AAAA et AAAA-MM-JJ ; un code qui commence par zéro reste du texte ; un CSV qui n'est pas en UTF-8 est lu en Windows-1252.
+- **Statistiques** : quartiles par interpolation linéaire, écart-type de l'échantillon. Les tests les comparent à des valeurs calculées avec numpy.
+- **Dépendance** : `read-excel-file` (licence MIT) lit les classeurs. Elle n'est chargée que lorsqu'un fichier `.xlsx` est ouvert.
+- **Pas encore fait** : correction du fichier, graphiques, export du rapport.
 
 ## Garde-fous intégrés au code
 
