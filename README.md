@@ -2,7 +2,7 @@
 
 Le site présente trois prestations de données (audit et nettoyage, tableau de bord, rapport automatisé) et un observatoire : les chiffres du marché de l'assurance en Côte d'Ivoire, chacun relié à la source publique où il a été lu.
 
-**État au 12 novembre 2026.** Le site compte six pages : accueil, offres, atelier, observatoire, méthode, contact. L'atelier lit un fichier Excel ou CSV dans le navigateur et en donne l'état : lignes vides, doublons, cellules vides, colonnes incohérentes, statistiques par colonne. Le nom de l'entreprise est provisoire. L'observatoire affiche 20 chiffres clés, relevés sur 5 pages publiques ; tous portent la mention « à confirmer », car ils n'ont pas encore été relus dans les rapports officiels.
+**État au 12 novembre 2026.** Trois pages sont en ligne : accueil, atelier, observatoire. Trois autres sont écrites mais pas publiées (offres, méthode, contact) : elles attendent le nom de l'entreprise, ses coordonnées et la validation des offres. L'atelier lit un fichier Excel ou CSV dans le navigateur et en donne l'état : lignes vides, doublons, cellules vides, colonnes incohérentes, statistiques par colonne. Le nom de l'entreprise est provisoire. L'observatoire affiche 20 chiffres clés, relevés sur 5 pages publiques ; tous portent la mention « à confirmer », car ils n'ont pas encore été relus dans les rapports officiels.
 
 Site en ligne : https://elixirsoro.github.io/observatoire-cima/
 
@@ -50,6 +50,7 @@ data/saisie/*.csv  ──►  base SQLite  ──►  app/public/data/observatoi
 
 | Pour changer | Modifiez dans `contenu.ts` |
 |---|---|
+| Les pages mises en ligne | `PAGES_EN_LIGNE` : une page absente de la liste n'est ni construite, ni dans le menu |
 | Le nom de l'entreprise | `NOM_ENTREPRISE` (une seule ligne) |
 | Le courriel et le numéro WhatsApp | `COORDONNEES` |
 | Une offre, son délai, son prix | `OFFRES` |
@@ -78,7 +79,7 @@ npm run dev        # ouvre le site sur http://localhost:5173
 
 ```bash
 pytest && ruff check . && mypy src tests     # à la racine : 67 tests
-cd app && npm test && npm run build          # 70 tests, puis construction du site
+cd app && npm test && npm run build          # 74 tests, puis construction du site
 ```
 
 Les mêmes vérifications tournent sur GitHub à chaque envoi (`.github/workflows/ci.yml`). Si elles passent, le site est reconstruit et remis en ligne automatiquement.

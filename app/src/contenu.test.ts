@@ -1,6 +1,17 @@
 import { describe, expect, it } from 'vitest';
 
-import { COORDONNEES, NOM_ENTREPRISE, OFFRES, PAGE_OFFRES, PAGES, SECTIONS } from './contenu';
+import {
+  ACCUEIL,
+  COORDONNEES,
+  estPubliee,
+  NOM_DU_SITE,
+  NOM_ENTREPRISE,
+  OFFRES,
+  PAGE_OFFRES,
+  PAGES,
+  PAGES_PUBLIEES,
+  SECTIONS,
+} from './contenu';
 import { adresseDe, lireChemin } from './lib/chemins';
 import { liensDeContact } from './lib/contact';
 import { formaterFourchetteFcfa } from './lib/format';
@@ -29,6 +40,30 @@ describe('PAGES', () => {
   });
 });
 
+describe('pages mises en ligne', () => {
+  it("publie toujours l'accueil en premier, et seulement des pages existantes", () => {
+    expect(PAGES_PUBLIEES[0]?.id).toBe('accueil');
+    expect(PAGES_PUBLIEES.length).toBeGreaterThan(0);
+    expect(PAGES_PUBLIEES.every((page) => PAGES.includes(page))).toBe(true);
+  });
+
+  it("ne met pas la page Contact en ligne sans coordonnées", () => {
+    if (estPubliee('contact')) {
+      expect(liensDeContact(COORDONNEES).length).toBeGreaterThan(0);
+    }
+  });
+
+  it("ne publie les pages de l'entreprise qu'ensemble", () => {
+    expect(estPubliee('methode')).toBe(estPubliee('offres'));
+    expect(estPubliee('contact')).toBe(estPubliee('offres'));
+  });
+
+  it("n'envoie le bouton principal de l'accueil que vers une page publiée", () => {
+    expect(PAGES_PUBLIEES.map((page) => page.segment)).toContain(ACCUEIL.boutonPrincipal.vers);
+    expect(estPubliee('atelier') && estPubliee('observatoire')).toBe(true);
+  });
+});
+
 describe('OFFRES', () => {
   it('donne à chaque offre un livrable, un délai et une fourchette de prix valide', () => {
     expect(OFFRES.length).toBeGreaterThan(0);
@@ -49,6 +84,7 @@ describe('réglages du site', () => {
 
   it("ne porte pas le sigle du régulateur dans le nom de l'entreprise", () => {
     expect(NOM_ENTREPRISE.toUpperCase()).not.toContain('CIMA');
+    expect(NOM_DU_SITE.toUpperCase()).not.toContain('CIMA');
   });
 
   it("garde des ancres uniques pour les sections de l'observatoire", () => {

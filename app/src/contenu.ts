@@ -26,6 +26,25 @@ export const COORDONNEES: Coordonnees = {
 
 export type IdPage = 'accueil' | 'offres' | 'atelier' | 'observatoire' | 'methode' | 'contact';
 
+/**
+ * LES PAGES MISES EN LIGNE. Une page absente de cette liste n'est ni construite, ni dans le
+ * menu, ni liée depuis une autre page. Pour ouvrir tout le site, écrivez :
+ * ['accueil', 'offres', 'atelier', 'observatoire', 'methode', 'contact'].
+ * Avant d'y ajouter « offres », « methode » ou « contact » : arrêtez le nom de l'entreprise,
+ * renseignez COORDONNEES et relisez les textes de OFFRES et de PAGE_METHODE.
+ */
+export const PAGES_EN_LIGNE: readonly IdPage[] = ['accueil', 'atelier', 'observatoire'];
+
+export function estPubliee(id: IdPage): boolean {
+  return PAGES_EN_LIGNE.includes(id);
+}
+
+/** Le site présente l'entreprise et ses offres seulement quand la page des offres est en ligne. */
+const SITE_COMPLET = estPubliee('offres');
+
+/** Nom affiché en haut et en bas du site : celui de l'entreprise, ou un nom descriptif d'ici là. */
+export const NOM_DU_SITE = SITE_COMPLET ? NOM_ENTREPRISE : 'Atelier et observatoire';
+
 export interface Page {
   id: IdPage;
   /** Dossier de la page dans l'adresse ; vide pour l'accueil. Minuscules, chiffres, tirets. */
@@ -44,15 +63,18 @@ export const PAGES: readonly Page[] = [
     id: 'accueil',
     segment: '',
     libelle: 'Accueil',
-    titre: `${NOM_ENTREPRISE} — vos fichiers Excel, transformés en tableaux de bord`,
-    description:
-      'Nettoyage de données, tableaux de bord et rapports automatisés pour les entreprises et les cabinets, à Abidjan.',
+    titre: SITE_COMPLET
+      ? `${NOM_DU_SITE} — vos fichiers Excel, transformés en tableaux de bord`
+      : `${NOM_DU_SITE} — contrôler un fichier de données, consulter les chiffres de l'assurance`,
+    description: SITE_COMPLET
+      ? 'Nettoyage de données, tableaux de bord et rapports automatisés pour les entreprises et les cabinets, à Abidjan.'
+      : "Un atelier qui trouve les défauts d'un fichier Excel ou CSV, et un observatoire du marché ivoirien de l'assurance.",
   },
   {
     id: 'offres',
     segment: 'offres',
     libelle: 'Offres',
-    titre: `Offres — ${NOM_ENTREPRISE}`,
+    titre: `Offres — ${NOM_DU_SITE}`,
     description:
       'Trois prestations de données : audit et nettoyage, tableau de bord, rapport mensuel automatisé. Livrable, délai et prix indicatif.',
   },
@@ -60,7 +82,7 @@ export const PAGES: readonly Page[] = [
     id: 'atelier',
     segment: 'atelier',
     libelle: 'Atelier',
-    titre: `Atelier de données — ${NOM_ENTREPRISE}`,
+    titre: `Atelier de données — ${NOM_DU_SITE}`,
     description:
       "Déposez un fichier Excel ou CSV et obtenez son état de santé : doublons, cellules vides, colonnes incohérentes. Le fichier reste sur votre appareil.",
   },
@@ -68,7 +90,7 @@ export const PAGES: readonly Page[] = [
     id: 'observatoire',
     segment: 'observatoire',
     libelle: 'Observatoire',
-    titre: `Observatoire du marché ivoirien de l'assurance — ${NOM_ENTREPRISE}`,
+    titre: `Observatoire du marché ivoirien de l'assurance — ${NOM_DU_SITE}`,
     description:
       "Les chiffres du marché ivoirien de l'assurance, chacun relié à sa source publique.",
   },
@@ -76,7 +98,7 @@ export const PAGES: readonly Page[] = [
     id: 'methode',
     segment: 'methode',
     libelle: 'Méthode',
-    titre: `Méthode — ${NOM_ENTREPRISE}`,
+    titre: `Méthode — ${NOM_DU_SITE}`,
     description:
       'Comment le travail est fait : des résultats que vous pouvez refaire, des calculs testés, des données qui restent les vôtres.',
   },
@@ -84,17 +106,31 @@ export const PAGES: readonly Page[] = [
     id: 'contact',
     segment: 'contact',
     libelle: 'Contact',
-    titre: `Contact — ${NOM_ENTREPRISE}`,
+    titre: `Contact — ${NOM_DU_SITE}`,
     description: 'Écrire ou appeler pour parler de vos fichiers. Aucun formulaire, aucune donnée enregistrée.',
   },
 ];
 
+/** Les pages publiées, dans l'ordre du menu. */
+export const PAGES_PUBLIEES: readonly Page[] = PAGES.filter((page) => estPubliee(page.id));
+
 export const ACCUEIL = {
-  titre: 'Vos fichiers Excel, transformés en tableaux de bord.',
-  texte:
-    'Nettoyage de données, tableaux de bord et rapports automatisés pour les entreprises et les cabinets, à Abidjan.',
-  boutonPrincipal: 'Voir les offres',
+  titre: SITE_COMPLET
+    ? 'Vos fichiers Excel, transformés en tableaux de bord.'
+    : 'Vos fichiers Excel, passés au contrôle.',
+  texte: SITE_COMPLET
+    ? 'Nettoyage de données, tableaux de bord et rapports automatisés pour les entreprises et les cabinets, à Abidjan.'
+    : "Un atelier qui trouve les défauts d'un fichier de données, et un observatoire du marché ivoirien de l'assurance.",
+  boutonPrincipal: SITE_COMPLET
+    ? { libelle: 'Voir les offres', vers: 'offres' }
+    : { libelle: "Ouvrir l'atelier", vers: 'atelier' },
   boutonSecondaire: "Consulter l'observatoire",
+  atelier: {
+    titre: 'Un atelier pour contrôler vos fichiers',
+    texte:
+      "Déposez un fichier Excel ou CSV : l'atelier liste les lignes vides, les doublons, les cellules vides et les valeurs incohérentes. Le fichier est lu sur votre appareil et n'est envoyé nulle part.",
+    lien: "Ouvrir l'atelier",
+  },
   offres: {
     titre: 'Trois prestations, un résultat livré à chaque fois',
     lien: 'Voir le détail des offres',

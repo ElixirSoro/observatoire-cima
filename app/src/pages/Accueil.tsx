@@ -1,6 +1,6 @@
 import { Appel } from '../components/Appel';
 import { Maree } from '../components/Maree';
-import { ACCUEIL, APPEL_CONTACT, CHIFFRES_CLES, OFFRES, PAGE_METHODE } from '../contenu';
+import { ACCUEIL, APPEL_CONTACT, CHIFFRES_CLES, estPubliee, OFFRES, PAGE_METHODE } from '../contenu';
 import { type EtatDonnees, trouver } from '../lib/donnees';
 import { formaterFourchetteFcfa, formaterNombre } from '../lib/format';
 import { Lien } from '../navigation';
@@ -16,14 +16,30 @@ function HeroAccueil() {
         <h1 className="hero__titre">{ACCUEIL.titre}</h1>
         <p className="hero__texte">{ACCUEIL.texte}</p>
         <div className="hero__actions">
-          <Lien className="bouton bouton--plein" vers="offres">
-            {ACCUEIL.boutonPrincipal}
+          <Lien className="bouton bouton--plein" vers={ACCUEIL.boutonPrincipal.vers}>
+            {ACCUEIL.boutonPrincipal.libelle}
           </Lien>
           <Lien className="bouton bouton--contour" vers="observatoire">
             {ACCUEIL.boutonSecondaire}
           </Lien>
         </div>
       </div>
+    </section>
+  );
+}
+
+function ApercuAtelier() {
+  return (
+    <section className="section largeur" aria-labelledby="titre-apercu-atelier">
+      <h2 id="titre-apercu-atelier" className="section__titre">
+        {ACCUEIL.atelier.titre}
+      </h2>
+      <p className="section__texte">{ACCUEIL.atelier.texte}</p>
+      <p className="section__suite">
+        <Lien className="bouton bouton--contour" vers="atelier">
+          {ACCUEIL.atelier.lien}
+        </Lien>
+      </p>
     </section>
   );
 }
@@ -122,14 +138,17 @@ export function Accueil({ etat }: { etat: EtatDonnees }) {
   return (
     <>
       <HeroAccueil />
-      <ApercuOffres />
+      {estPubliee('offres') && <ApercuOffres />}
+      <ApercuAtelier />
       <ApercuObservatoire etat={etat} />
-      <ApercuMethode />
-      <Appel id="titre-appel-accueil" titre={APPEL_CONTACT.titre} texte={APPEL_CONTACT.texte}>
-        <Lien className="bouton bouton--plein" vers="contact">
-          {APPEL_CONTACT.bouton}
-        </Lien>
-      </Appel>
+      {estPubliee('methode') && <ApercuMethode />}
+      {estPubliee('contact') && (
+        <Appel id="titre-appel-accueil" titre={APPEL_CONTACT.titre} texte={APPEL_CONTACT.texte}>
+          <Lien className="bouton bouton--plein" vers="contact">
+            {APPEL_CONTACT.bouton}
+          </Lien>
+        </Appel>
+      )}
     </>
   );
 }

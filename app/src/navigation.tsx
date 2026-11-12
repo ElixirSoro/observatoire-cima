@@ -18,12 +18,12 @@ import {
   useState,
 } from 'react';
 
-import { type Page, PAGES } from './contenu';
+import { type Page, PAGES_PUBLIEES } from './contenu';
 import { adresseDe, lireChemin } from './lib/chemins';
 
 const ID_CONTENU = 'contenu';
 const BOUTON_PRINCIPAL = 0;
-const SEGMENTS = PAGES.map((page) => page.segment).filter((segment) => segment !== '');
+const SEGMENTS = PAGES_PUBLIEES.map((page) => page.segment).filter((segment) => segment !== '');
 
 interface Navigation {
   /** Adresse du dossier racine du site, terminée par « / ». */
@@ -36,7 +36,7 @@ interface Navigation {
 const Contexte = createContext<Navigation | null>(null);
 
 function pageDuSegment(segment: string): Page {
-  const page = PAGES.find((candidate) => candidate.segment === segment);
+  const page = PAGES_PUBLIEES.find((candidate) => candidate.segment === segment);
   if (page === undefined) {
     throw new Error(`Aucune page ne correspond au segment « ${segment} ».`);
   }

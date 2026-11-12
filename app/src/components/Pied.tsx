@@ -1,4 +1,4 @@
-import { NOM_ENTREPRISE, PAGES, PIED } from '../contenu';
+import { NOM_DU_SITE, PAGES_PUBLIEES, PIED } from '../contenu';
 import { formaterDate } from '../lib/format';
 import { Lien } from '../navigation';
 
@@ -11,7 +11,7 @@ export function Pied({ misAJourLe }: { misAJourLe: string | null }) {
           <p className="pied__mention">{PIED.mention}</p>
           <nav aria-label="Pages du site, en bas de page">
             <ul className="pied__liens">
-              {PAGES.map((page) => (
+              {PAGES_PUBLIEES.map((page) => (
                 <li key={page.id}>
                   <Lien vers={page.segment}>{page.libelle}</Lien>
                 </li>
@@ -20,7 +20,7 @@ export function Pied({ misAJourLe }: { misAJourLe: string | null }) {
           </nav>
         </div>
         <p className="pied__nom" aria-hidden="true">
-          {NOM_ENTREPRISE}
+          {NOM_DU_SITE}
         </p>
         <p className="pied__date">
           {misAJourLe === null
