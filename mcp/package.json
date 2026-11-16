@@ -1,0 +1,25 @@
+{
+  "name": "atelier-observatoire-mcp",
+  "version": "0.1.0",
+  "description": "Serveur MCP : observatoire du marché ivoirien de l'assurance et atelier de contrôle de fichiers.",
+  "scripts": {
+    "test": "vitest run",
+    "verifier": "tsc --noEmit",
+    "construire": "node construire.mjs",
+    "paquet": "node construire.mjs && mcpb validate paquet/manifest.json && mcpb pack paquet atelier-observatoire.mcpb"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "read-excel-file": "^9.3.15",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@anthropic-ai/mcpb": "^2.1.2",
+    "@types/node": "^26.6.6",
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0"
+  },
+  "private": true,
+  "type": "module"
+}

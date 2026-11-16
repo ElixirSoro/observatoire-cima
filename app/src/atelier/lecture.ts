@@ -1,41 +1,19 @@
 /** Lecture d'un fichier choisi par l'utilisateur. Le fichier reste dans le navigateur. */
 
 import { decoderTexte, lireCsv } from './csv';
-import { type Cellule, construireTableau, LIMITES, type Tableau } from './tableau';
+import {
+  CONSEIL_XLS,
+  EXTENSION_ANCIEN_CLASSEUR,
+  EXTENSION_CLASSEUR,
+  EXTENSIONS_TEXTE,
+  extensionDe,
+  messageClasseur,
+  messageFormat,
+  versCellule,
+} from './formats';
+import { construireTableau, LIMITES, type Tableau } from './tableau';
 
-const EXTENSIONS_TEXTE = ['csv', 'txt', 'tsv'];
-const EXTENSION_CLASSEUR = 'xlsx';
-const EXTENSION_ANCIEN_CLASSEUR = 'xls';
-const CODE_ANCIEN_CLASSEUR = 'XLS_FILE_NOT_SUPPORTED';
 const OCTETS_PAR_MO = 1024 * 1024;
-
-const CONSEIL_XLS =
-  'Ce fichier est un ancien classeur Excel (.xls). Ouvrez-le dans Excel, enregistrez-le au format .xlsx, puis recommencez.';
-
-/** Extension d'un nom de fichier, en minuscules et sans le point ; vide s'il n'y en a pas. */
-export function extensionDe(nom: string): string {
-  const point = nom.lastIndexOf('.');
-  return point <= 0 || point === nom.length - 1 ? '' : nom.slice(point + 1).toLowerCase();
-}
-
-/** Ramène une valeur lue dans un classeur à une cellule : texte, nombre, vrai/faux, date ou vide. */
-export function versCellule(valeur: unknown): Cellule {
-  if (valeur === null || valeur === undefined) {
-    return null;
-  }
-  if (typeof valeur === 'string' || typeof valeur === 'number' || typeof valeur === 'boolean') {
-    return valeur;
-  }
-  return valeur instanceof Date ? valeur : String(valeur);
-}
-
-function messageClasseur(erreur: unknown): string {
-  if (typeof erreur === 'object' && erreur !== null && 'code' in erreur && erreur.code === CODE_ANCIEN_CLASSEUR) {
-    return CONSEIL_XLS;
-  }
-  const detail = erreur instanceof Error ? erreur.message : 'erreur inconnue';
-  return `Ce classeur n'a pas pu être lu (${detail}). Vérifiez qu'il s'ouvre dans Excel et qu'il est bien au format .xlsx.`;
-}
 
 async function lireClasseur(fichier: File): Promise<Tableau> {
   const { default: lireFeuilles } = await import('read-excel-file/browser');
@@ -85,5 +63,5 @@ export async function lireFichier(fichier: File): Promise<Tableau> {
   if (extension === EXTENSION_ANCIEN_CLASSEUR) {
     throw new Error(CONSEIL_XLS);
   }
-  throw new Error(`Format non pris en charge : « ${fichier.name} ». Formats lus : .xlsx, .csv, .tsv, .txt.`);
+  throw new Error(messageFormat(fichier.name));
 }

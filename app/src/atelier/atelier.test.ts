@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { redigerConstats } from './constats';
 import { decoderTexte, detecterSeparateur, lireCsv } from './csv';
 import { tableauExemple } from './exemple';
-import { extensionDe, versCellule } from './lecture';
+import { extensionDe, messageClasseur, versCellule } from './formats';
 import { decrireResume } from './libelles';
 import { controlerQualite, profilerColonne } from './qualite';
 import { quantile, resumerDates, resumerNombres, resumerTextes } from './statistiques';
@@ -267,6 +267,11 @@ describe('lecture', () => {
     expect(versCellule(3)).toBe(3);
     expect(versCellule(date)).toBe(date);
     expect(versCellule({ toString: () => 'objet' })).toBe('objet');
+  });
+
+  it('écrit un message lisible quand un classeur est illisible', () => {
+    expect(messageClasseur({ code: 'XLS_FILE_NOT_SUPPORTED' })).toMatch(/ancien classeur/);
+    expect(messageClasseur(new Error('zip invalide'))).toMatch(/zip invalide/);
   });
 });
 
