@@ -92,6 +92,10 @@ Les mêmes vérifications tournent sur GitHub à chaque envoi (`.github/workflow
 - **Dépendance** : `read-excel-file` (licence MIT) lit les classeurs. Elle n'est chargée que lorsqu'un fichier `.xlsx` est ouvert.
 - **Pas encore fait** : correction du fichier, graphiques, export du rapport.
 
+## Serveur MCP pour Claude
+
+Le dossier `mcp/` contient un serveur MCP qui donne à Claude les chiffres de l'observatoire et l'outil de contrôle de l'atelier. Il s'installe dans Claude Desktop en un fichier `.mcpb`. Voir `mcp/README.md`.
+
 ## Garde-fous intégrés au code
 
 - Une source dont l'accès n'est ni `public_en_ligne` ni `communique_par_l_organisme` est refusée.
